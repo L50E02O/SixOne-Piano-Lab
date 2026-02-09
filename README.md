@@ -26,6 +26,7 @@ Crear `.env.local` a partir de `.env.local.example` y configurar Supabase si usa
 - `lib/keyMap.ts` - Mapeo QWERTY a notas (C3-C5)
 - `lib/tone-synth.ts` - Sintetizador Tone.js con polifonia
 - `supabase/schema-lessons.sql` - Esquema de ejercicios
+- `components/LessonsPanel` - Panel de lecciones abrir/cerrar (persistencia en localStorage)
 
 ## Mapeo de teclas (60%)
 
