@@ -19,7 +19,6 @@ export async function initPianoSynth(): Promise<void> {
 
   if (!pianoSynth) {
     pianoSynth = new Tone.PolySynth(Tone.Synth, {
-      maxPolyphony: 16,
       oscillator: { type: "triangle" },
       envelope: {
         attack: 0.005,
