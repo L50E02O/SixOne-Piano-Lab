@@ -18,5 +18,6 @@ export type LessonExercise = {
   description: string | null;
   sequence: string[];
   difficulty: ExerciseDifficulty;
+  sort_order: number | null;
   created_at: string;
 };
