@@ -8,13 +8,11 @@ import {
   getInitialLessonsOpen,
   setLessonsOpenPersisted,
 } from "@/components/LessonsPanel";
-import { initPianoSynth } from "@/lib/tone-synth";
 import { fetchExercises } from "@/lib/exercises";
 import type { LessonExercise } from "@/lib/supabase";
 
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
-  const [audioUnlocked, setAudioUnlocked] = useState(false);
   const [exercises, setExercises] = useState<LessonExercise[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<LessonExercise | null>(null);
   const [lessonIndex, setLessonIndex] = useState(0);
@@ -27,11 +25,6 @@ export default function Home() {
 
   const handleActiveKeysChange = useCallback((keys: Set<string>) => {
     setActiveKeys(keys);
-  }, []);
-
-  const handleUnlockAudio = useCallback(async () => {
-    await initPianoSynth();
-    setAudioUnlocked(true);
   }, []);
 
   const handleLessonsOpenChange = useCallback((open: boolean) => {
@@ -81,29 +74,21 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6">
+    <main className="min-h-screen flex flex-col items-center py-8 px-4 sm:px-6">
       <KeyboardMapper
         onKeyDown={handleKeyDown}
         onActiveKeysChange={handleActiveKeysChange}
         activeKeys={activeKeys}
       />
 
-      <header className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-piano-white mb-2">
-          PC Piano Learner
+      <header className="text-center mb-8">
+        <h1 className="font-display text-3xl sm:text-4xl font-bold text-piano-white mb-2 tracking-tight">
+          SixOne Piano Lab
         </h1>
-        <p className="text-sm text-zinc-400 mb-4">
-          Usa las teclas QWERTY, numeros (2-7) y ZXCV para tocar.
+        <p className="text-sm text-zinc-400 max-w-lg mx-auto">
+          Aprende piano con tu teclado. Filas <strong className="text-piano-left">Z–M</strong> (mano izquierda) y{" "}
+          <strong className="text-piano-right">Q–I</strong> (mano derecha). Audio al pulsar la primera tecla.
         </p>
-        {!audioUnlocked && (
-          <button
-            type="button"
-            onClick={handleUnlockAudio}
-            className="px-4 py-2 rounded-lg bg-piano-active text-white font-medium hover:bg-piano-active/90 transition-colors"
-          >
-            Activar audio
-          </button>
-        )}
       </header>
 
       <LessonsPanel
@@ -119,9 +104,8 @@ export default function Home() {
 
       <PianoVisualizer activeKeys={activeKeys} />
 
-      <p className="mt-6 text-xs text-zinc-500 max-w-md text-center">
-        Optimizado para teclados 60%. Filas ZXCV y QWERTY mapean dos octavas.
-        Polifonia activa: puedes tocar acordes manteniendo varias teclas.
+      <p className="mt-8 text-xs text-zinc-500 max-w-md text-center">
+        Teclados 60%: filas ZXCV (octava baja) y QWERTY (octava alta). Polifonía: mantén varias teclas para acordes.
       </p>
     </main>
   );
