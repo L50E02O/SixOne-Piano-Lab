@@ -200,6 +200,15 @@ export const KEY_TO_NOTE: Record<string, NoteInfo> = {
 /** Teclas que activan notas (para evitar escuchar otras teclas) */
 export const PIANO_KEYS = new Set(Object.keys(KEY_TO_NOTE));
 
+/** Octava inferior (C3-B3): mano izquierda. Octava superior (C4-C5): mano derecha. */
+const LEFT_HAND_KEYS = new Set(["z", "s", "x", "d", "c", "v", "g", "b", "h", "n", "j", "m"]);
+
+/** Indica la mano que debe tocar la tecla (como en piano real) */
+export function getHandForKey(key: string): "L" | "R" {
+  const k = key.toLowerCase();
+  return LEFT_HAND_KEYS.has(k) ? "L" : "R";
+}
+
 /** Obtiene la nota asociada a una tecla, normalizada a minuscula */
 export function getNoteForKey(key: string): NoteInfo | null {
   const normalized = key.toLowerCase();

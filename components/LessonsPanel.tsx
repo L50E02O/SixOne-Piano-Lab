@@ -31,24 +31,22 @@ export function LessonsPanel({
   onReset,
 }: LessonsPanelProps) {
   return (
-    <div className="w-full max-w-2xl mx-auto mb-4">
-      <div className="flex items-center justify-between gap-2 mb-2">
+    <div className="w-full max-w-2xl mx-auto mb-6">
+      <div className="flex items-center justify-between gap-2 mb-3">
         <button
           type="button"
           onClick={() => onOpenChange(!isOpen)}
           className={`
-            px-3 py-2 rounded-lg text-sm font-medium transition-colors
+            px-4 py-2 rounded-xl text-sm font-medium transition-all
             ${isOpen
-              ? "bg-piano-border text-zinc-400 hover:bg-piano-border/80 hover:text-white"
-              : "bg-piano-active text-white hover:bg-piano-active/90"}
+              ? "bg-piano-border/80 text-zinc-400 hover:bg-piano-border hover:text-white"
+              : "bg-piano-active text-white hover:bg-piano-activeDim"}
           `}
         >
           {isOpen ? "Cerrar lecciones" : "Abrir lecciones"}
         </button>
         {!isOpen && (
-          <span className="text-xs text-zinc-500">
-            Modo solo piano
-          </span>
+          <span className="text-xs text-zinc-500">Modo solo piano</span>
         )}
       </div>
 
@@ -56,7 +54,9 @@ export function LessonsPanel({
         <>
           {exercises.length > 0 ? (
             <div className="mb-4">
-              <p className="text-xs text-zinc-500 mb-2">Elige un ejercicio (por dificultad)</p>
+              <p className="text-xs text-zinc-500 mb-2">
+                Elige una lección (progresión: principiante → avanzado)
+              </p>
               <div className="flex flex-wrap gap-2">
                 {exercises.map((ex) => (
                   <button
@@ -64,20 +64,20 @@ export function LessonsPanel({
                     type="button"
                     onClick={() => onSelectExercise(ex)}
                     className={`
-                      px-3 py-1.5 rounded text-sm font-medium transition-colors inline-flex items-center gap-1.5
+                      px-3 py-2 rounded-xl text-sm font-medium transition-all inline-flex items-center gap-2
                       ${selectedExercise?.id === ex.id
-                        ? "bg-piano-active text-white"
-                        : "bg-piano-border text-zinc-400 hover:bg-piano-border/80 hover:text-white"}
+                        ? "bg-piano-active text-white shadow-md"
+                        : "bg-piano-border/60 text-zinc-400 hover:bg-piano-border hover:text-white"}
                     `}
                   >
                     <span>{ex.title}</span>
                     <span
                       className={`
-                        text-[10px] px-1.5 py-0.5 rounded uppercase
-                        ${ex.difficulty === "principiante" ? "bg-green-900/60 text-green-300" : ""}
-                        ${ex.difficulty === "basico" ? "bg-blue-900/60 text-blue-300" : ""}
-                        ${ex.difficulty === "intermedio" ? "bg-amber-900/60 text-amber-300" : ""}
-                        ${ex.difficulty === "avanzado" ? "bg-red-900/60 text-red-300" : ""}
+                        text-[10px] px-1.5 py-0.5 rounded-md uppercase font-semibold
+                        ${ex.difficulty === "principiante" ? "bg-green-900/50 text-green-300" : ""}
+                        ${ex.difficulty === "basico" ? "bg-blue-900/50 text-blue-300" : ""}
+                        ${ex.difficulty === "intermedio" ? "bg-amber-900/50 text-amber-300" : ""}
+                        ${ex.difficulty === "avanzado" ? "bg-red-900/50 text-red-300" : ""}
                       `}
                     >
                       {ex.difficulty}
@@ -88,7 +88,7 @@ export function LessonsPanel({
             </div>
           ) : (
             <p className="text-xs text-zinc-500 mb-2">
-              Sin ejercicios. Anade algunos en Supabase (tabla exercises).
+              Sin ejercicios. Añade algunos en Supabase (tabla exercises).
             </p>
           )}
 
