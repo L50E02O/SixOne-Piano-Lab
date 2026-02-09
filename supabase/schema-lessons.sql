@@ -6,10 +6,12 @@ create table if not exists public.exercises (
   title text not null,
   description text,
   sequence jsonb not null default '[]'::jsonb,
+  difficulty text not null default 'principiante',
   created_at timestamptz default now()
 );
 
 -- sequence: array de teclas PC en orden, ej: ["q", "w", "e", "r", "t", "y", "u"]
+-- difficulty: principiante | basico | intermedio | avanzado
 alter table public.exercises enable row level security;
 
 create policy "Allow public read" on public.exercises
