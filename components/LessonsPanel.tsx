@@ -56,7 +56,7 @@ export function LessonsPanel({
         <>
           {exercises.length > 0 ? (
             <div className="mb-4">
-              <p className="text-xs text-zinc-500 mb-2">Elige un ejercicio</p>
+              <p className="text-xs text-zinc-500 mb-2">Elige un ejercicio (por dificultad)</p>
               <div className="flex flex-wrap gap-2">
                 {exercises.map((ex) => (
                   <button
@@ -64,13 +64,24 @@ export function LessonsPanel({
                     type="button"
                     onClick={() => onSelectExercise(ex)}
                     className={`
-                      px-3 py-1.5 rounded text-sm font-medium transition-colors
+                      px-3 py-1.5 rounded text-sm font-medium transition-colors inline-flex items-center gap-1.5
                       ${selectedExercise?.id === ex.id
                         ? "bg-piano-active text-white"
                         : "bg-piano-border text-zinc-400 hover:bg-piano-border/80 hover:text-white"}
                     `}
                   >
-                    {ex.title}
+                    <span>{ex.title}</span>
+                    <span
+                      className={`
+                        text-[10px] px-1.5 py-0.5 rounded uppercase
+                        ${ex.difficulty === "principiante" ? "bg-green-900/60 text-green-300" : ""}
+                        ${ex.difficulty === "basico" ? "bg-blue-900/60 text-blue-300" : ""}
+                        ${ex.difficulty === "intermedio" ? "bg-amber-900/60 text-amber-300" : ""}
+                        ${ex.difficulty === "avanzado" ? "bg-red-900/60 text-red-300" : ""}
+                      `}
+                    >
+                      {ex.difficulty}
+                    </span>
                   </button>
                 ))}
               </div>
