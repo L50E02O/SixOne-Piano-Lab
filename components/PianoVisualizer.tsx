@@ -1,23 +1,19 @@
 "use client";
 
-import { KEY_TO_NOTE, getHandForKey } from "@/lib/keyMap";
+import { KEY_TO_NOTE, NOTE_ORDER, getHandForKey } from "@/lib/keyMap";
 
 export type PianoVisualizerProps = {
   activeKeys?: Set<string>;
 };
 
-const NOTE_ORDER = [
-  "z", "s", "x", "d", "c", "v", "g", "b", "h", "n", "j", "m",
-  "q", "2", "w", "3", "e", "r", "5", "t", "6", "y", "7", "u", "i",
-];
-
-/** Visualizador de piano con zonas L/R como en un piano real. */
+/** Piano de una octava: blancas A–K, negras Q–T. Muestra solfeo (Do Re Mi) y tecla. */
 export function PianoVisualizer({ activeKeys = new Set() }: PianoVisualizerProps) {
   return (
-    <div className="w-full max-w-5xl mx-auto select-none">
-      <div className="flex items-center justify-between mb-2 px-1">
-        <span className="text-[10px] font-medium text-piano-left/80">Mano izquierda (Z–M)</span>
-        <span className="text-[10px] font-medium text-piano-right/80">Mano derecha (Q–I)</span>
+    <div className="w-full max-w-4xl mx-auto select-none">
+      <div className="flex items-center justify-center gap-1 mb-2 px-1">
+        <span className="text-[10px] font-medium text-piano-left/80">Blancas A–K</span>
+        <span className="text-[10px] text-zinc-500">|</span>
+        <span className="text-[10px] font-medium text-piano-right/80">Negras Q–T</span>
       </div>
       <div className="flex rounded-xl overflow-hidden shadow-piano border border-piano-border bg-piano-black">
         {NOTE_ORDER.map((key) => {
@@ -60,7 +56,7 @@ export function PianoVisualizer({ activeKeys = new Set() }: PianoVisualizerProps
                   isBlack ? "text-piano-white/70" : "text-piano-black/60"
                 }`}
               >
-                {info.note}
+                {info.solfeo}
               </span>
             </div>
           );

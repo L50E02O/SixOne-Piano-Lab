@@ -14,6 +14,7 @@ export type LessonsPanelProps = {
   lessonIndex: number;
   lastKeyCorrect: boolean | null;
   onReset: () => void;
+  activeKeys?: Set<string>;
 };
 
 /**
@@ -29,6 +30,7 @@ export function LessonsPanel({
   lessonIndex,
   lastKeyCorrect,
   onReset,
+  activeKeys = new Set(),
 }: LessonsPanelProps) {
   return (
     <div className="w-full max-w-2xl mx-auto mb-6">
@@ -55,7 +57,7 @@ export function LessonsPanel({
           {exercises.length > 0 ? (
             <div className="mb-4">
               <p className="text-xs text-zinc-500 mb-2">
-                Elige una lección (progresión: principiante → avanzado)
+                Ubicación de teclas (Do Re Mi) y acordes mayores/menores
               </p>
               <div className="flex flex-wrap gap-2">
                 {exercises.map((ex) => (
@@ -97,6 +99,7 @@ export function LessonsPanel({
             currentIndex={lessonIndex}
             lastKeyCorrect={lastKeyCorrect}
             onReset={onReset}
+            activeKeys={activeKeys}
           />
         </>
       )}
